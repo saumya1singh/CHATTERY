@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/container"
     android:layout_height="match_parent">
 
     <TextView
@@ -19,6 +21,52 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/emptyView"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_gravity="center_horizontal"
+
+                app:srcCompat="@drawable/undraw_empty_xct9" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:text="Yet You have no chats in Chattery!"
+                android:textSize="@dimen/title_size"
+                android:textStyle="bold"
+
+                >
+
+            </TextView>
+
+            <Button
+            android:layout_marginTop="15dp"
+                android:layout_width="109dp"
+                android:id="@+id/btnChat"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/button_bg"
+                android:gravity="center"
+                android:text="START CHAT">
+
+            </Button>
+
+        </LinearLayout>
+
 
 
 </LinearLayout>

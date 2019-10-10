@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/friendName"
-        android:text="Saumya"
+        android:text="FriendName"
         android:textStyle="bold"
         android:textSize="@dimen/title_size"
         android:layout_gravity="center"
