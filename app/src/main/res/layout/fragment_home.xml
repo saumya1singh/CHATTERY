@@ -34,7 +34,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="300dp"
                 android:layout_gravity="center_horizontal"
 
                 app:srcCompat="@drawable/undraw_empty_xct9" />
@@ -54,7 +54,7 @@
             </TextView>
 
             <Button
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
                 android:layout_width="109dp"
                 android:id="@+id/btnChat"
                 android:layout_height="match_parent"

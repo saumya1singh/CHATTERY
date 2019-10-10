@@ -180,7 +180,7 @@ public class ProfileFragment extends Fragment {
                             progressDialog.dismiss();
                             Uri downloadUrl = taskSnapshot.getUploadSessionUri();
                             Log.e("Upload", "onSuccess: " + downloadUrl.toString() );
-                            databaseReference.child("ProfileUrl").setValue(downloadUrl.toString());
+                            databaseReference.setValue(downloadUrl.toString());
                             Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })

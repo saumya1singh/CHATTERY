@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,12 +39,13 @@ import java.util.List;
 
 public class HomeChattingActivity extends AppCompatActivity {
 
-    private static final String TAG ="MainActivity";
+    private static final String TAG ="HomeChattingActivity";
 
     //Intent intent = getIntent().getStringExtra();
     Bundle bundle = new Bundle();
     String friendname = bundle.getString("FriendName");
     String friendphone = bundle.getString("FriendPhone");
+
 
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
@@ -76,6 +78,7 @@ public class HomeChattingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_chatting);
 
         mUsername = ANONYMOUS;
+        Log.e("Friend", "onCreate: " + friendname + friendphone);
 
         messageListView = (ListView) findViewById(R.id.messageListView);
         photoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);

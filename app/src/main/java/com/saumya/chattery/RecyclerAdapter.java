@@ -66,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 Intent intent = new Intent(view.getContext(), HomeChattingActivity.class) ;
                 view.getContext().startActivity(intent);
                 Bundle bundle = new Bundle();
-                bundle.putString("FriendName", list.getName());
+                bundle.putString("FriendName", name);
                 bundle.putString("FriendPhone",list.getPhone());
                 //intent.putExtra("Name",name);
                 //intent.putExtra("Phone",list.getPhone());
