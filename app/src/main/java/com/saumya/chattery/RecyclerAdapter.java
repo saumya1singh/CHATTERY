@@ -53,7 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
-        databaseReference = firebaseDatabase.getReference("Chatter/" + "Personal");
+        databaseReference = firebaseDatabase.getReference("Chatter/" );
 
         holder.title.setText(name);
         holder.phone.setText(list.getPhone());
@@ -66,8 +66,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 Intent intent = new Intent(view.getContext(), HomeChattingActivity.class) ;
                 view.getContext().startActivity(intent);
                 Bundle bundle = new Bundle();
-                bundle.putString("Name", name);
-                bundle.putString("Phone",list.getPhone());
+                bundle.putString("FriendName", list.getName());
+                bundle.putString("FriendPhone",list.getPhone());
                 //intent.putExtra("Name",name);
                 //intent.putExtra("Phone",list.getPhone());
 

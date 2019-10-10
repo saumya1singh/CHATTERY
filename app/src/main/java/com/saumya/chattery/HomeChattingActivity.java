@@ -42,8 +42,8 @@ public class HomeChattingActivity extends AppCompatActivity {
 
     //Intent intent = getIntent().getStringExtra();
     Bundle bundle = new Bundle();
-    String name = bundle.getString("Name");
-    String phone = bundle.getString("Phone");
+    String friendname = bundle.getString("FriendName");
+    String friendphone = bundle.getString("FriendPhone");
 
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
@@ -65,6 +65,7 @@ public class HomeChattingActivity extends AppCompatActivity {
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
 
+    String name, phone;
     private ChildEventListener childEventListener;
 
     SharedPreferences sharedPreferences;
@@ -143,10 +144,10 @@ public class HomeChattingActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                  MessageModel messageModel = new MessageModel(messageEditText.getText().toString() , mUsername , null);
-                 databaseReference.push().setValue(messageModel);
+                 //databaseReference.push().setValue(messageModel);
 
-                 databaseReference.child(name).child("Message").push().setValue(messageEditText.getText().toString());
-                 databaseReference.child(name).child("Phone").setValue(phone);
+                 databaseReference.child(friendname).child("Message").push().setValue(messageEditText.getText().toString());
+                 databaseReference.child(friendname).child("Phone").setValue(phone);
                 // Clear input box
                 messageEditText.setText("");
             }
@@ -177,7 +178,7 @@ public class HomeChattingActivity extends AppCompatActivity {
 
                             // Set the download URL to the message box, so that the user can send it to the database
                            MessageModel messageModel = new MessageModel(null, mUsername, downloadUrl.toString());
-                           databaseReference.push().setValue(messageModel);
+                           databaseReference.child(friendname).child("Images").push().setValue(downloadUrl);
                         }
 
                     });

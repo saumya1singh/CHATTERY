@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class ProfileFragment extends Fragment {
     StorageReference storageReference;
 
     private final int PICK_IMAGE_REQUEST = 10;
+    SharedPreferences sharedPreferences;
 
 
     TextView tvName, tvPhone;
@@ -79,31 +81,33 @@ public class ProfileFragment extends Fragment {
         btnUpload = root.findViewById(R.id.btnSavePic);
 
 
+        sharedPreferences = getContext().getSharedPreferences("User", Context.MODE_PRIVATE);
+
+        name = sharedPreferences.getString("Name", "");
+        phone = sharedPreferences.getString("Phone", "");
+
         firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
-        databaseReference = firebaseDatabase.getReference("Chatter/" );
+        databaseReference = firebaseDatabase.getReference("Chatter/" + name + "/ImageUrl");
         storageReference = FirebaseStorage.getInstance().getReference();
 
         tvName = root.findViewById(R.id.tvName);
         tvPhone = root.findViewById(R.id.tvPhone);
 
+        tvName.setText(name);
+        tvPhone.setText(phone);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if(dataSnapshot.exists()){
 
-                name = dataSnapshot.child("Name").getValue().toString();
-                phone = dataSnapshot.child("Phone").getValue().toString();
+                    url =  dataSnapshot.child("ImageUrl").getValue().toString();
+                    Glide.with(requireContext())
+                            .load(url)
+                            .into(ProfilePicture);
 
-                url = dataSnapshot.child("ImageUrl").getValue().toString();
-
-                tvName.setText(name);
-                tvPhone.setText(phone);
-
-                Glide.with(requireContext())
-                        .load(url)
-                        .into(ProfilePicture);
-
+                }
             }
 
             @Override
@@ -175,8 +179,8 @@ public class ProfileFragment extends Fragment {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                            Log.e("Upload", "onSuccess: " + downloadUrl );
-                            databaseReference.child("ImageUrl").setValue(downloadUrl);
+                            Log.e("Upload", "onSuccess: " + downloadUrl.toString() );
+                            databaseReference.child("ProfileUrl").setValue(downloadUrl.toString());
                             Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })

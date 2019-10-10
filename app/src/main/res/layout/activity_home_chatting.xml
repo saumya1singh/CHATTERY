@@ -7,6 +7,19 @@
     android:orientation="vertical"
     tools:context=".HomeChattingActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/friendName"
+        android:text="Saumya"
+        android:textStyle="bold"
+        android:textSize="@dimen/title_size"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:layout_height="46dp">
+
+    </TextView>
+
     <ListView
 
         android:id="@+id/messageListView"
