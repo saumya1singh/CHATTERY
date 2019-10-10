@@ -24,6 +24,9 @@ public class ChatFragment extends Fragment {
                 ViewModelProviders.of(this).get(ChatViewModel.class);
         View root = inflater.inflate(R.layout.fragment_chat, container, false);
 
+
+
+
         return root;
     }
 }
