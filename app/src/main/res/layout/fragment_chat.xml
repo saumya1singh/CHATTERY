@@ -15,15 +15,20 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 
     </androidx.appcompat.widget.AppCompatImageView>
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="71dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/ic_sync_black_24dp">
 
-    </ImageView>
+    <Button
+        android:layout_width="298dp"
+        android:id="@+id/btnSync"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button_bg"
+        android:textColor="@color/colorPrimaryDark"
+        android:drawableLeft="@drawable/ic_sync_black_24dp"
+        android:text="Click here to sync contact"
 
+        >
 
+    </Button>
 
 </LinearLayout>
+
