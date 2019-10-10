@@ -2,7 +2,10 @@ package com.saumya.chattery;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,14 +34,39 @@ public class LoginActivity extends AppCompatActivity {
          Phone = etPhone.getText().toString();
 
          firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
-         databaseReference = firebaseDatabase.getReference("");
+         databaseReference = firebaseDatabase.getReference("Chatter/" + "Personal" );
+
+         btnSubmit.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 if (chekvalidation()){
+
+                     databaseReference.child("Name").setValue(Name);
+                     databaseReference.child("Phone").setValue(Phone);
 
 
+                     Intent intent = new Intent(LoginActivity.this, BottomNavigation.class);
+                     startActivity(intent);
+                 }
+
+             }
+         });
 
 
+    }
 
+    private boolean chekvalidation() {
+        boolean check = true;
 
+        if (TextUtils.isEmpty(Name)) {
+            etName.setError("Required");
+            check = false;
+        }
+        if (TextUtils.isEmpty(Phone)) {
+            etPhone.setError("Required");
+            check = false;
+        }
 
-
+        return check;
     }
 }
