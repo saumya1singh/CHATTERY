@@ -21,8 +21,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -37,17 +43,21 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
-
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    StorageReference storageReference;
 
     private ImageView ProfilePicture;
     private Uri filePath;
     private ImageView ChoosePicture;
     Button btnUpload;
     FirebaseStorage storage;
-    StorageReference storageReference;
+
     private final int PICK_IMAGE_REQUEST = 10;
 
+
     TextView tvName, tvPhone;
+    String name,phone;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,11 +70,39 @@ public class ProfileFragment extends Fragment {
         ChoosePicture = root.findViewById(R.id.imgChoose);
         btnUpload = root.findViewById(R.id.btnSavePic);
 
+
+        firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
+        databaseReference = firebaseDatabase.getReference("Chatter/" + "Personal");
+        storageReference = FirebaseStorage.getInstance().getReference().child("images");
+
         tvName = root.findViewById(R.id.tvName);
         tvPhone = root.findViewById(R.id.tvPhone);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                name = dataSnapshot.child("Name").toString();
+                phone = dataSnapshot.child("Phone").toString();
+
+                tvName.setText(name);
+                tvPhone.setText(phone);
+
+                Glide.with(requireContext())
+                        .using(new FirebaseImageLoader())
+                        .load(storageReference)
+                        .into();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         ChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +120,7 @@ public class ProfileFragment extends Fragment {
             }
 
         });
+
 
 
         return root;
