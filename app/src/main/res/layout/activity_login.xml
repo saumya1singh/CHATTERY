@@ -32,6 +32,7 @@
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="331dp"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="LOG IN " />
