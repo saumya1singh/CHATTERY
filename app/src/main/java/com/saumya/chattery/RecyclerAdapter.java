@@ -1,6 +1,8 @@
 package com.saumya.chattery;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         list = cont.get(position);
-        String name = (list.getName());
+        final String name = (list.getName());
 
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
@@ -61,6 +63,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(view.getContext(), HomeChattingActivity.class) ;
+                view.getContext().startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("Name", name);
+                bundle.putString("Phone",list.getPhone());
+                //intent.putExtra("Name",name);
+                //intent.putExtra("Phone",list.getPhone());
 
             }
         });
@@ -95,6 +104,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             phone = (TextView) itemView.findViewById(R.id.no);
             contactCard = itemView.findViewById(R.id.contactCard);
             contact_select_layout = (LinearLayout) itemView.findViewById(R.id.contact_select_layout);
+
 
         }
     }

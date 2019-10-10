@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,19 +52,20 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    StorageReference storageReference;
+
 
     ImageView ProfilePicture;
     private Uri filePath;
     private ImageView ChoosePicture;
     Button btnUpload;
     FirebaseStorage storage;
+    StorageReference storageReference;
 
     private final int PICK_IMAGE_REQUEST = 10;
 
 
     TextView tvName, tvPhone;
-    String name, phone;
+    String name, phone, url;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,27 +80,28 @@ public class ProfileFragment extends Fragment {
 
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
-        databaseReference = firebaseDatabase.getReference("Chatter/" + "Personal");
-        storageReference = FirebaseStorage.getInstance().getReference().child("images");
+        databaseReference = firebaseDatabase.getReference("Chatter/" );
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         tvName = root.findViewById(R.id.tvName);
         tvPhone = root.findViewById(R.id.tvPhone);
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                name = dataSnapshot.child("Name").toString();
-                phone = dataSnapshot.child("Phone").toString();
+
+                name = dataSnapshot.child("Name").getValue().toString();
+                phone = dataSnapshot.child("Phone").getValue().toString();
+
+                url = dataSnapshot.child("ImageUrl").getValue().toString();
 
                 tvName.setText(name);
                 tvPhone.setText(phone);
 
                 Glide.with(requireContext())
-                        .load(storageReference)
+                        .load(url)
                         .into(ProfilePicture);
 
             }
@@ -108,6 +111,9 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+
+
 
         ChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +127,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 uploadImage();
 
-                Toast.makeText(getContext(), "Updated your profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Updating your profile", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -132,10 +138,12 @@ public class ProfileFragment extends Fragment {
 
 
     private void ChooseImage() {
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), PICK_IMAGE_REQUEST);
+
     }
 
     @Override
@@ -166,6 +174,9 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
+                            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                            Log.e("Upload", "onSuccess: " + downloadUrl );
+                            databaseReference.child("ImageUrl").setValue(downloadUrl);
                             Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })

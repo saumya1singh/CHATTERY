@@ -37,7 +37,7 @@
             android:layout_marginTop="16dp"
             android:maxWidth="200dp"
             android:maxHeight="200dp"
-            android:scaleType="fitCenter"
+
             android:src="@drawable/ic_account_circle_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
