@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.saumya.chattery.ChatActivity;
 import com.saumya.chattery.R;
 
 public class ChatFragment extends Fragment {
@@ -33,7 +34,8 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //Intent intent = new Intent(getContext(), )
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
             }
         });
 
