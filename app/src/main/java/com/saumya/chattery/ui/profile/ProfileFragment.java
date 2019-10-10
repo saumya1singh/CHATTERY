@@ -2,6 +2,7 @@ package com.saumya.chattery.ui.profile;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -22,6 +23,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import com.saumya.chattery.R;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
@@ -47,7 +53,7 @@ public class ProfileFragment extends Fragment {
     DatabaseReference databaseReference;
     StorageReference storageReference;
 
-    private ImageView ProfilePicture;
+    ImageView ProfilePicture;
     private Uri filePath;
     private ImageView ChoosePicture;
     Button btnUpload;
@@ -57,7 +63,7 @@ public class ProfileFragment extends Fragment {
 
 
     TextView tvName, tvPhone;
-    String name,phone;
+    String name, phone;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -92,9 +98,8 @@ public class ProfileFragment extends Fragment {
                 tvPhone.setText(phone);
 
                 Glide.with(requireContext())
-                        .using(new FirebaseImageLoader())
                         .load(storageReference)
-                        .into();
+                        .into(ProfilePicture);
 
             }
 
@@ -120,7 +125,6 @@ public class ProfileFragment extends Fragment {
             }
 
         });
-
 
 
         return root;
@@ -184,4 +188,14 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    @GlideModule
+    public class MyAppGlideModule extends AppGlideModule {
+
+        @Override
+        public void registerComponents(Context context, Glide glide, Registry registry) {
+            // Register FirebaseImageLoader to handle StorageReference
+            registry.append(StorageReference.class, InputStream.class,
+                    new FirebaseImageLoader.Factory());
+        }
+    }
 }
