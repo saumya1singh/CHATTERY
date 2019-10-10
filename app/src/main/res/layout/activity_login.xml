@@ -33,7 +33,7 @@
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="331dp"
-        
+        android:background="@drawable/button_bg"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="LOG IN " />

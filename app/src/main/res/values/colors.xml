@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#b042f5</color>
     <color name="pink">#d949e3</color>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="gradStart">#AD3DF1</color>
+    <color name="gradStop">#5D0A97</color>
 </resources>
