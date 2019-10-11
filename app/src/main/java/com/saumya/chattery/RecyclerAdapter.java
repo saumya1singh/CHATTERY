@@ -2,7 +2,9 @@ package com.saumya.chattery;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    SharedPreferences sharedPreferences;
 
 
 
@@ -41,6 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View v = layoutInflater.inflate(R.layout.contactlist_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
@@ -64,10 +68,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), HomeChattingActivity.class) ;
-                view.getContext().startActivity(intent);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("FriendName", name);
                 bundle.putString("FriendPhone",list.getPhone());
+                intent.putExtras(bundle);
+                Log.e("Friend", name + list.getPhone());
+                view.getContext().startActivity(intent);
+
                 //intent.putExtra("Name",name);
                 //intent.putExtra("Phone",list.getPhone());
 

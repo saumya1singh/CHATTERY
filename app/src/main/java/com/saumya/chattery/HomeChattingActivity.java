@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,9 +43,6 @@ public class HomeChattingActivity extends AppCompatActivity {
     private static final String TAG ="HomeChattingActivity";
 
     //Intent intent = getIntent().getStringExtra();
-    Bundle bundle = new Bundle();
-    String friendname = bundle.getString("FriendName");
-    String friendphone = bundle.getString("FriendPhone");
 
 
     public static final String ANONYMOUS = "anonymous";
@@ -62,12 +60,15 @@ public class HomeChattingActivity extends AppCompatActivity {
 
     private String mUsername;
 
+    Bundle bundle;
+    String friendname,friendphone;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
 
     String name, phone;
+    TextView tvFriend ;
     private ChildEventListener childEventListener;
 
     SharedPreferences sharedPreferences;
@@ -77,8 +78,14 @@ public class HomeChattingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_chatting);
 
+
+        bundle = this.getIntent().getExtras();
+        friendname = bundle.getString("FriendName");
+        friendphone = bundle.getString("FriendPhone");
+
+        tvFriend = findViewById(R.id.friendName);
         mUsername = ANONYMOUS;
-        Log.e("Friend", "onCreate: " + friendname + friendphone);
+        Log.e("FriendHomeChat", "onCreate: " + friendname + friendphone);
 
         messageListView = (ListView) findViewById(R.id.messageListView);
         photoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);
@@ -89,7 +96,7 @@ public class HomeChattingActivity extends AppCompatActivity {
         name = sharedPreferences.getString("Name","");
         phone = sharedPreferences.getString("Phone ","");
         firebaseDatabase = FirebaseDatabase.getInstance("https://chattery-23cb9.firebaseio.com/");
-        databaseReference = firebaseDatabase.getReference("Chatter/" + "Friends");
+        databaseReference = firebaseDatabase.getReference("Chatter/" + name +"/Friends");
         mFirebaseStorage = FirebaseStorage.getInstance();
         mChatPhotosStorageReference = mFirebaseStorage.getReference().child("chat_photos");
 
@@ -97,7 +104,7 @@ public class HomeChattingActivity extends AppCompatActivity {
 
         messageAdapter = new MessageAdapter(getBaseContext() , R.layout.item_message , messageModels);
         messageListView.setAdapter(messageAdapter);
-
+        tvFriend.setText(friendname + " " + "talking ✔");
 
         photoPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,13 +153,15 @@ public class HomeChattingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                 MessageModel messageModel = new MessageModel(messageEditText.getText().toString() , mUsername , null);
-                 //databaseReference.push().setValue(messageModel);
+                MessageModel messageModel = new MessageModel(messageEditText.getText().toString() , mUsername , null);
+
 
                  databaseReference.child(friendname).child("Message").push().setValue(messageEditText.getText().toString());
-                 databaseReference.child(friendname).child("Phone").setValue(phone);
+                 databaseReference.child(friendname).child("Phone").setValue(friendphone);
+
                 // Clear input box
                 messageEditText.setText("");
+
             }
         });
 
@@ -181,7 +190,7 @@ public class HomeChattingActivity extends AppCompatActivity {
 
                             // Set the download URL to the message box, so that the user can send it to the database
                            MessageModel messageModel = new MessageModel(null, mUsername, downloadUrl.toString());
-                           databaseReference.child(friendname).child("Images").push().setValue(downloadUrl);
+                           databaseReference.child(friendname).child("Images").push().setValue(downloadUrl.toString());
                         }
 
                     });
@@ -210,6 +219,8 @@ public class HomeChattingActivity extends AppCompatActivity {
             childEventListener=new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    Log.e(TAG, "onChildAdded Messages "+ dataSnapshot );
                     MessageModel messageModel=dataSnapshot.getValue(MessageModel.class);
                     messageAdapter.add(messageModel);
                 }
