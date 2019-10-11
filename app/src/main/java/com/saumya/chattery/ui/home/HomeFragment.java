@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                //fragmentTransaction.add(R.id.container2 ,new ChatFragment() ).commit();
+                fragmentTransaction.replace(R.id.container ,new ChatFragment() ).commit();
 
 
             }

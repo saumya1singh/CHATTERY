@@ -161,6 +161,7 @@ public class HomeChattingActivity extends AppCompatActivity {
 
                 // Clear input box
                 messageEditText.setText("");
+                Toast.makeText(getBaseContext(), friendname + " is receiving your messages" , Toast.LENGTH_SHORT).show();
 
             }
         });
