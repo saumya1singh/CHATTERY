@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Chattery</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
     <string name="title_home">Home</string>
@@ -6,7 +6,7 @@
     <string name="title_notifications">Notifications</string>
 
 
-    <string name="automatic_data">Chatting</string>
+    <string name="automatic_data" tools:ignore="ExtraTranslation">Chatting</string>
     <string name="permission_title">Grant Access</string>
     <string name="permission_detail">Give Music Player access to files</string>
     <string name="choose_the_song">Begin Chatting</string>
