@@ -2,6 +2,7 @@ package com.saumya.chattery;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +48,11 @@ public class ChatActivity extends AppCompatActivity {
             showContacts();
 
 
+
+
         }
+
+    
 
         private void showContacts () {
             // Check the SDK version and whether the permission is already granted or not.
@@ -138,6 +144,8 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         }
+
+
 
 
 

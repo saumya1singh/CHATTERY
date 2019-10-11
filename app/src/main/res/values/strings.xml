@@ -4,4 +4,19 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+
+    <string name="automatic_data">Chatting</string>
+    <string name="permission_title">Grant Access</string>
+    <string name="permission_detail">Give Music Player access to files</string>
+    <string name="choose_the_song">Begin Chatting</string>
+    <string name="edit_data">Group Hangout</string>
+    <string name="result_awesome">Result is awesome!</string>
+    <string name="continue_and_learn">Tap open both of their chats, if it says both are online, proceed.</string>
+    <string name="continue_and_update">The five senses exercise can help. It helps us to be better at picking up on what our senses tell us. As a result, it makes it easier for us to start a conversation.</string>
+    <string name="continue_and_result">The end goal of small talk is to find a mutual interest – something BOTH of you love to talk about. When you find a mutual interest, the conversation stops being boring!</string>
+    <string name="thank_you">Thank you, have fun</string>
+    <string name="gm_finds_photos">The end goal of small talk is to find a mutual interest – something BOTH of you love to talk about. When you find a mutual interest, the conversation stops being boring!</string>
+    <string name="swap_to_the_tab">When you text someone new or someone you barely know, you need a clear REASON for why you are contacting them. </string>   <string name="update_easily">The end goal of small talk is to find a mutual interest – something BOTH of you love to talk about. When you find a mutual interest, the conversation stops being boring!</string>
+    <string name="after_updating">When you focus on someone else or something else than yourself, that makes you LESS SELF-CONSCIOUS and MORE CONFIDENT.</string>
 </resources>
