@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
 
                 if(dataSnapshot.exists()){
 
-                    url =  dataSnapshot.child("ImageUrl").getValue().toString();
+                    url =  dataSnapshot.getValue().toString();
                     Glide.with(requireContext())
                             .load(url)
                             .into(ProfilePicture);
