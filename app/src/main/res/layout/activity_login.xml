@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context=".LoginActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="112dp"
-        android:layout_height="97dp"
-        android:layout_margin="20dp"
+        android:layout_width="127dp"
+        android:layout_height="121dp"
         android:layout_gravity="center"
-        android:src="@drawable/logotwo">
+        android:layout_margin="20dp"
+        android:src="@drawable/project_logo">
 
     </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -21,22 +22,40 @@
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:hint="Name"
+        android:textColorHint="#fff"
+        android:background="@drawable/button_bg"
+        android:textSize="30dp"
+        android:fontFamily="serif"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
         android:inputType="number"
-        android:hint="Phone Number" />
+        android:hint="Phone Number"
+        android:background="@drawable/button_bg"
+        android:textSize="30dp"
+        android:fontFamily="serif"
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="331dp"
-        android:background="@drawable/button_bg"
         android:layout_height="wrap_content"
+        android:layout_below="@id/etPhone"
         android:layout_gravity="center"
-        android:text="LOG IN " />
+        android:background="@drawable/button_bg"
+        android:text="LOG IN "
+        android:textSize="20dp"
+        android:textColor="#fff"
+        android:layout_marginTop="10dp"/>
 
 
 </LinearLayout>
